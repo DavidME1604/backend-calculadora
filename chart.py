@@ -1,5 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from flask import url_for
+
 
 # Definir la función que genera otra función
 def f(v0, interes, a):
@@ -29,3 +31,4 @@ def graficar(capitalInicial, aporte, interes):
 
     plt.show()
 
+graficar(100, 5, 0.0015)
