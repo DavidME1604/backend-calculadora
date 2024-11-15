@@ -7,9 +7,9 @@ def f(v0, interes, a):
         return v0 * (1 + interes) ** x + a * (((1 + interes) ** x - (1 + interes)) / interes)
     return funcion
 
-def graficar():
+def graficar(capitalInicial, aporte, interes):
 
-    funcion_reemplazada = f(100, 0.0015, 5)
+    funcion_reemplazada = f(capitalInicial, interes, aporte)
     x = np.linspace(1, 12, 60)
 
     y = funcion_reemplazada(x)
@@ -28,6 +28,4 @@ def graficar():
     plt.savefig('Img/grafico_funcion.png', format='png', dpi=300, bbox_inches='tight')
 
     plt.show()
-
-graficar()
 
