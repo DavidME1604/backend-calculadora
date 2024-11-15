@@ -26,7 +26,7 @@ def calculate():
     return jsonify({'result': result})
 
 
-@app.route('/api/chart', methods=['POST'])
+@app.route('/api/chart', methods=['GET'])
 def chart():
     initial_capital = main_data.get('initialCapital', 0)
     periodic_contribution = main_data.get('periodicContribution', 0)
