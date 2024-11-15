@@ -1,18 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from interes import obtener_interes
 
 app = Flask(__name__)
 CORS(app)
-
-
-def obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution):
-    # Ejemplo de cálculo de interés (ajusta según tu fórmula)
-    if num_periods == 0:
-        return "Número de períodos no puede ser cero"
-
-    interest_rate = ((final_capital - initial_capital - (periodic_contribution * num_periods)) / (
-                initial_capital * num_periods)) * 100
-    return interest_rate
 
 
 @app.route('/api/calculate', methods=['POST'])
