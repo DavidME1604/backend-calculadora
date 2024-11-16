@@ -26,13 +26,13 @@ def calculate():
     return jsonify({'result': result})
 
 
-@app.route('/api/chart', methods=['GET'])
+@app.route('/api/chart', methods=['POST'])
 def chart():
     initial_capital = main_data.get('initialCapital', 0)
     periodic_contribution = main_data.get('periodicContribution', 0)
     interes = main_data.get('interes', 0)
     graficar(initial_capital, interes, periodic_contribution)
-    image_url = url_for('static', filename='Img/grafico_funcion.png', _external=True)
+    image_url = url_for('static', filename='grafico_funcion.png', _external=True)
     return jsonify({"chartUrl": image_url})
 
 if __name__ == '__main__':

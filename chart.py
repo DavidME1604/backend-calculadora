@@ -25,9 +25,8 @@ def graficar(capitalInicial, aporte, interes):
     plt.axhline(0, color='black', linewidth=0.8)
     plt.axvline(0, color='black', linewidth=0.8)
     plt.grid(True, linestyle='--', alpha=0.7)
-    plt.legend()
 
-    plt.savefig('Img/grafico_funcion.png', format='png', dpi=300, bbox_inches='tight')
+    plt.savefig('grafico_funcion', format='png', dpi=300, bbox_inches='tight')
 
     plt.show()
 
