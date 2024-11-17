@@ -25,10 +25,12 @@ def calculate():
 
         if contribution_period == 'mensual' and interest_display == 'semanal':
             result /= 4.33
-        elif contribution_period == 'anual' and interest_display == 'semanal':
-            result /= 52
-        elif contribution_period == 'anual' and interest_display == 'mensual':
-            result /= 12
+        elif contribution_period == 'anual':
+            if interest_display == 'semanal':
+                result /= 52
+            elif interest_display == 'mensual':
+                result /= 12
+
 
         graficar(initial_capital, periodic_contribution, result)
         return jsonify({'result': result})
