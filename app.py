@@ -32,6 +32,7 @@ def chart():
     interes = main_data.get('interes', 0)
     graficar(initial_capital, periodic_contribution, interes)
     image_url = url_for('static', filename='grafico_funcion.png', _external=True)
+    print(image_url)
     return jsonify({"chartUrl": image_url})
 
 if __name__ == '__main__':
