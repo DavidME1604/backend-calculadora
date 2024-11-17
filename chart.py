@@ -17,9 +17,9 @@ def graficar(capitalInicial, aporte, interes):
     y = funcion_reemplazada(x)
     plt.figure(figsize=(10, 6))
     plt.plot(x, y, color='blue', linewidth=2)
-    plt.title('Gráfica de la Función Generada', fontsize=16)
-    plt.xlabel('x', fontsize=14)
-    plt.ylabel('f(x)', fontsize=14)
+    plt.title('Gráfica interés vs Ganancia', fontsize=16)
+    plt.xlabel('Interés', fontsize=14)
+    plt.ylabel('Ganancia', fontsize=14)
     plt.grid(True, linestyle='--', alpha=0.7)
 
     image_path = os.path.join(os.getcwd(), 'static', 'grafico_funcion.png')
