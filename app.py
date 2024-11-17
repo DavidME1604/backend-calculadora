@@ -37,7 +37,11 @@ def calculate():
             periodic_contribution /= 12
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
         graficar(initial_capital, periodic_contribution, result)
-        return jsonify({'result': result})
+        return jsonify({'result': result,
+                        'initialCapital':initial_capital,
+                        'periodicContribution':periodic_contribution,
+                        'interestRate':result
+                        })
     except Exception as e:
         print(f"Error en /api/calculate: {e}")
         return jsonify({'error': 'Ocurrió un error al procesar la solicitud.'}), 500
