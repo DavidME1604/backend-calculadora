@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from flask import url_for
 
 
 # Definir la función que genera otra función
@@ -28,5 +29,7 @@ def graficar(capitalInicial, aporte, interes):
     # Verificar si el archivo fue creado
     if os.path.exists(image_path):
         print(f"Archivo generado en: {image_path}, Tamaño: {os.path.getsize(image_path)} bytes")
+        image_url = url_for('static', filename='grafico_funcion.png', _external=True)
+        print('La url es: {}'.format(image_url))
     else:
         print("No se pudo generar el archivo.")
