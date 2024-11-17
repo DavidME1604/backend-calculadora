@@ -31,5 +31,3 @@ def graficar(capitalInicial, aporte, interes):
         print(f"Archivo generado en: {image_path}, Tamaño: {os.path.getsize(image_path)} bytes")
     else:
         print("No se pudo generar el archivo.")
-
-graficar(100, 5, 0.0015)
