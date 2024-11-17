@@ -36,8 +36,10 @@ def calculate():
 @app.route('/api/chart', methods=['POST'])
 def chart():
     image_url = url_for('static', filename='grafico_funcion.png', _external=True)
-    print(image_url)
+    print('La url es: {}'.format(image_url))
     return jsonify({"chartUrl": image_url})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+
+chart()
