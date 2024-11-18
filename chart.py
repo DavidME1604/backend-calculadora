@@ -55,7 +55,7 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest):
                 'period': i,
                 'contribution': periodic_contribution,
                 'capital': round(capital, 2),
-                'gain': round(funcion_reemplazada(i)-capital, 2),
+                'gain': round(funcion_reemplazada(i)-capital-periodic_contribution, 2),
                 'total': round(total, 2)
             })
     return table_data
