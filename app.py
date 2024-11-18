@@ -1,10 +1,12 @@
 from flask import Flask, request, jsonify, url_for
 from flask_cors import CORS
 from interes import obtener_interes
-from chart import graficar
+from chart import graficar, table_data
 
 app = Flask(__name__)
 CORS(app)
+
+data_table = []
 @app.route('/api/calculate', methods=['POST'])
 def calculate():
     data = request.json
@@ -18,6 +20,7 @@ def calculate():
             return jsonify({'error': 'Los valores ingresados deben ser positivos.'}), 400
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
         graficar(initial_capital, periodic_contribution, result)
+        data_table = table_data(initial_capital, num_periods, periodic_contribution, result)
         return jsonify({'result': result})
     except Exception as e:
         print(f"Error en /api/calculate: {e}")
@@ -29,6 +32,10 @@ def chart():
     image_url = url_for('static', filename='grafico_funcion.png', _external=True)
     print('La url es: {}'.format(image_url))
     return jsonify({"chartUrl": image_url})
+
+@app.route('/api/table', methods=['POST'])
+def table():
+    return jsonify({'dataTable': data_table})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)

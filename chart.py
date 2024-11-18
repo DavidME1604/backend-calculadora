@@ -33,3 +33,29 @@ def graficar(capitalInicial, aporte, interes):
         print('La url es: {}'.format(image_url))
     else:
         print("No se pudo generar el archivo.")
+
+
+def table_data(initial_capital, num_periods, periodic_contribution, interest):
+    table_data = []
+    capital = initial_capital
+    funcion_reemplazada = f(initial_capital, interest, periodic_contribution)
+    for i in range(1, num_periods + 1):
+        if i == 1:
+            table_data.append({
+                'period': i,
+                'contribution': capital,
+                'capital': round(capital, 2),
+                'gain': round(funcion_reemplazada(1)-initial_capital, 2),
+                'total': round(funcion_reemplazada(1), 2)
+            })
+        else:
+            capital = funcion_reemplazada(i-1)
+            total = funcion_reemplazada(i)
+            table_data.append({
+                'period': i,
+                'contribution': periodic_contribution,
+                'capital': round(capital, 2),
+                'gain': round(funcion_reemplazada(i)-capital, 2),
+                'total': round(total, 2)
+            })
+    return table_data
