@@ -25,7 +25,7 @@ def calculate():
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
         graficar(initial_capital, periodic_contribution, result)
 
-        # Actualizar la variable global data_table
+        # Actualizar la tabla global con nuevos cálculos
         data_table = table_data(initial_capital, num_periods, periodic_contribution, result)
 
         return jsonify({'result': result})
@@ -41,7 +41,30 @@ def chart():
 
 @app.route('/api/table', methods=['POST'])
 def table():
-    return jsonify({'dataTable': data_table})
+    print('Ingresa a la tabla')
+    try:
+        # Obtener el número de filas solicitadas del frontend
+        data = request.json
+        required_rows = int(data.get('requiredRows', 5))  # Por defecto 5 filas si no se especifica
+        global data_table
+
+        # Si no hay datos en `data_table`, devolvemos un error
+        if not data_table:
+            return jsonify({'error': 'No hay datos calculados. Por favor, realiza un cálculo primero.'}), 400
+
+        # Generar más filas si el número solicitado es mayor al disponible
+        if required_rows > len(data_table):
+            initial_capital = data_table[0]['capital']
+            periodic_contribution = data_table[0]['contribution']
+            interest = data_table[0]['gain'] / initial_capital
+            new_data = table_data(initial_capital, required_rows, periodic_contribution, interest)
+            data_table = new_data
+
+        # Devolver solo el número de filas solicitadas
+        return jsonify({'dataTable': data_table[:required_rows]})
+    except Exception as e:
+        print(f"Error en /api/table: {e}")
+        return jsonify({'error': 'Ocurrió un error al procesar la solicitud.'}), 500
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=10000)

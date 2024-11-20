@@ -43,19 +43,19 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest):
         if i == 1:
             table_data.append({
                 'period': i,
-                'contribution': capital,
+                'contribution': periodic_contribution,
                 'capital': round(capital, 2),
-                'gain': round(funcion_reemplazada(1)-initial_capital, 2),
+                'gain': round(funcion_reemplazada(1) - initial_capital, 2),
                 'total': round(funcion_reemplazada(1), 2)
             })
         else:
-            capital = funcion_reemplazada(i-1)
+            capital = funcion_reemplazada(i - 1)
             total = funcion_reemplazada(i)
             table_data.append({
                 'period': i,
                 'contribution': periodic_contribution,
                 'capital': round(capital, 2),
-                'gain': round(funcion_reemplazada(i)-capital-periodic_contribution, 2),
+                'gain': round(total - capital - periodic_contribution, 2),
                 'total': round(total, 2)
             })
     return table_data
