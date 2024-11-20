@@ -41,7 +41,6 @@ def chart():
 
 @app.route('/api/table', methods=['POST'])
 def table():
-    print('Ingresa a la tabla')
     try:
         # Obtener el número de filas solicitadas del frontend
         data = request.json
@@ -54,11 +53,12 @@ def table():
 
         # Generar más filas si el número solicitado es mayor al disponible
         if required_rows > len(data_table):
-            initial_capital = data_table[0]['capital']
-            periodic_contribution = data_table[0]['contribution']
-            interest = data_table[0]['gain'] / initial_capital
-            new_data = table_data(initial_capital, required_rows, periodic_contribution, interest)
-            data_table = new_data
+            last_row = data_table[-1]  # Obtener la última fila existente
+            initial_capital = last_row['capital']
+            periodic_contribution = last_row['contribution']
+            interest = last_row['gain'] / last_row['capital']
+            additional_data = table_data(initial_capital, required_rows - len(data_table), periodic_contribution, interest)
+            data_table.extend(additional_data)
 
         # Devolver solo el número de filas solicitadas
         return jsonify({'dataTable': data_table[:required_rows]})
