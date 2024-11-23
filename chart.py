@@ -52,10 +52,11 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest):
             capital = funcion_reemplazada(i - 1)
             total = funcion_reemplazada(i)
             table_data.append({
-                'period': i,
+                'period': i,  # Incremento del periodo
                 'contribution': periodic_contribution,
                 'capital': round(capital, 2),
                 'gain': round(total - capital - periodic_contribution, 2),
                 'total': round(total, 2)
             })
     return table_data
+

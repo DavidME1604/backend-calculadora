@@ -42,25 +42,26 @@ def chart():
 @app.route('/api/table', methods=['POST'])
 def table():
     try:
-        # Obtener el número de filas solicitadas del frontend
         data = request.json
-        required_rows = int(data.get('requiredRows', 5))  # Por defecto 5 filas si no se especifica
+        required_rows = int(data.get('requiredRows', 5))
         global data_table
 
-        # Si no hay datos en `data_table`, devolvemos un error
         if not data_table:
             return jsonify({'error': 'No hay datos calculados. Por favor, realiza un cálculo primero.'}), 400
 
-        # Generar más filas si el número solicitado es mayor al disponible
         if required_rows > len(data_table):
-            last_row = data_table[-1]  # Obtener la última fila existente
+            last_row = data_table[-1]
             initial_capital = last_row['capital']
             periodic_contribution = last_row['contribution']
             interest = last_row['gain'] / last_row['capital']
             additional_data = table_data(initial_capital, required_rows - len(data_table), periodic_contribution, interest)
+
+            # Ajusta el periodo para continuar con el último valor
+            last_period = last_row['period']
+            for i, row in enumerate(additional_data, start=1):
+                row['period'] = last_period + i
             data_table.extend(additional_data)
 
-        # Devolver solo el número de filas solicitadas
         return jsonify({'dataTable': data_table[:required_rows]})
     except Exception as e:
         print(f"Error en /api/table: {e}")
