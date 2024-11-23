@@ -35,12 +35,12 @@ def graficar(capitalInicial, aporte, interes):
         print("No se pudo generar el archivo.")
 
 
-def table_data(initial_capital, num_periods, periodic_contribution, interest):
+def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
     table_data = []
     capital = initial_capital
     funcion_reemplazada = f(initial_capital, interest, periodic_contribution)
-    for i in range(1, num_periods + 1):
-        if i == 1:
+    for i in range(start_period, start_period + num_periods):
+        if i == start_period:
             table_data.append({
                 'period': i,
                 'contribution': periodic_contribution,
@@ -49,10 +49,10 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest):
                 'total': round(funcion_reemplazada(1), 2)
             })
         else:
-            capital = funcion_reemplazada(i - 1)
-            total = funcion_reemplazada(i)
+            capital = funcion_reemplazada(i - 1 - start_period + 1)
+            total = funcion_reemplazada(i - start_period + 1)
             table_data.append({
-                'period': i,  # Incremento del periodo
+                'period': i,  # Asegura que el periodo continúe incrementando
                 'contribution': periodic_contribution,
                 'capital': round(capital, 2),
                 'gain': round(total - capital - periodic_contribution, 2),

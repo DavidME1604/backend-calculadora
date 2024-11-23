@@ -54,12 +54,8 @@ def table():
             initial_capital = last_row['capital']
             periodic_contribution = last_row['contribution']
             interest = last_row['gain'] / last_row['capital']
-            additional_data = table_data(initial_capital, required_rows - len(data_table), periodic_contribution, interest)
-
-            # Ajusta el periodo para continuar con el último valor
-            last_period = last_row['period']
-            for i, row in enumerate(additional_data, start=1):
-                row['period'] = last_period + i
+            last_period = last_row['period']  # Obtén el último periodo actual
+            additional_data = table_data(initial_capital, required_rows - len(data_table), periodic_contribution, interest, start_period=last_period + 1)
             data_table.extend(additional_data)
 
         return jsonify({'dataTable': data_table[:required_rows]})
