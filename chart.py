@@ -37,26 +37,20 @@ def graficar(capitalInicial, aporte, interes):
 
 def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
     table_data = []
-    capital = initial_capital
-    funcion_reemplazada = f(initial_capital, interest, periodic_contribution)
-    for i in range(start_period, start_period + num_periods):
-        if i == start_period:
-            table_data.append({
-                'period': i,
-                'contribution': periodic_contribution,
-                'capital': round(capital, 2),
-                'gain': round(funcion_reemplazada(1) - initial_capital, 2),
-                'total': round(funcion_reemplazada(1), 2)
-            })
-        else:
-            capital = funcion_reemplazada(i - 1 - start_period + 1)
-            total = funcion_reemplazada(i - start_period + 1)
-            table_data.append({
-                'period': i,  # Asegura que el periodo continúe incrementando
-                'contribution': periodic_contribution,
-                'capital': round(capital, 2),
-                'gain': round(total - capital - periodic_contribution, 2),
-                'total': round(total, 2)
-            })
+    for period in range(start_period, start_period + num_periods):
+        # Cálculo del total basado en la fórmula de interés compuesto
+        total = periodic_contribution * (1 + interest) ** period
+        # Se calcula la ganancia como el total menos el aporte
+        gain = total - periodic_contribution
+
+        table_data.append({
+            'period': period,
+            'contribution': periodic_contribution,
+            'capital': round(initial_capital, 2),  # Este valor puede ajustarse según tu lógica
+            'gain': round(gain, 2),
+            'total': round(total, 2)
+        })
+
     return table_data
+
 
