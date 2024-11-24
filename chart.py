@@ -35,15 +35,15 @@ def graficar(capitalInicial, aporte, interes,frequency):
         print("No se pudo generar el archivo.")
 
 def periodo(frequency):
-    if frequency == 'Diario':
+    if frequency == 'diario':
         return 1
-    elif frequency == 'Mensual':
+    elif frequency == 'mensual':
         return 12
-    elif frequency == 'Trimestral':
+    elif frequency == 'trimestral':
         return 36
-    elif frequency == 'Semestral':
+    elif frequency == 'semestral':
         return 60
-    elif frequency == 'Anual':
+    elif frequency == 'anual':
         return 120
     else:
         return None
