@@ -19,6 +19,7 @@ def calculate():
         num_periods = int(data.get('numPeriods', 0))
         periodic_contribution = float(data.get('periodicContribution', 0))
         frequency = data.get('frequency', 0)
+        print(frequency)
 
         if initial_capital < 0 or final_capital < 0 or num_periods <= 0 or periodic_contribution < 0:
             return jsonify({'error': 'Los valores ingresados deben ser positivos.'}), 400
