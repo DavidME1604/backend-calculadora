@@ -36,17 +36,17 @@ def graficar(capitalInicial, aporte, interes,frequency):
 
 def periodo(frequency):
     if frequency == 'diario':
-        return 1
+        return 365
     elif frequency == 'mensual':
         return 12
     elif frequency == 'semanal':
         return 52
     elif frequency == 'trimestral':
-        return 36
+        return 4
     elif frequency == 'semestral':
-        return 60
+        return 2
     elif frequency == 'anual':
-        return 120
+        return 1
     else:
         return None
 
