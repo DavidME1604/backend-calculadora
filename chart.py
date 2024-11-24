@@ -35,11 +35,17 @@ def graficar(capitalInicial, aporte, interes):
         print("No se pudo generar el archivo.")
 
 
+
 def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
     table_data = []
     for period in range(start_period, start_period + num_periods):
-        # Calcular Total usando la fórmula correcta
-        total = initial_capital * (1 + interest) ** period
+        # Calcular Total usando la nueva fórmula proporcionada
+        if abs(interest) < 1e-10:
+            # Caso especial para evitar división por cero
+            total = initial_capital * (1 + interest) ** period
+        else:
+            total = (initial_capital * (1 + interest) ** period +
+                     periodic_contribution * (((1 + interest) ** period - (1 + interest)) / interest))
 
         # Calcular Ganancia como la diferencia entre Total y el Capital Inicial
         gain = total - initial_capital
@@ -48,7 +54,7 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest, st
         table_data.append({
             'period': period,
             'contribution': periodic_contribution,
-            'capital': round(initial_capital, 2),  # Capital inicial no cambia en esta fórmula
+            'capital': round(initial_capital, 2),
             'gain': round(gain, 2),
             'total': round(total, 2)
         })
