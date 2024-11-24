@@ -39,6 +39,8 @@ def periodo(frequency):
         return 1
     elif frequency == 'mensual':
         return 12
+    elif frequency == 'semanal':
+        return 52
     elif frequency == 'trimestral':
         return 36
     elif frequency == 'semestral':
