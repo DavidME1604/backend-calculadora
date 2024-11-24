@@ -12,18 +12,19 @@ data_table = []
 def calculate():
     global data_table  # Indicar que se va a modificar la variable global
     data = request.json
+    print(f"Datos recibidos: {data}")
     try:
         initial_capital = float(data.get('initialCapital', 0))
         final_capital = float(data.get('finalCapital', 0))
         num_periods = int(data.get('numPeriods', 0))
         periodic_contribution = float(data.get('periodicContribution', 0))
-        frequency = data.get('frequency')
+        frequency = str(data.get('frequency', 0))
+        print(frequency)
 
         if initial_capital < 0 or final_capital < 0 or num_periods <= 0 or periodic_contribution < 0:
             return jsonify({'error': 'Los valores ingresados deben ser positivos.'}), 400
-
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
-        graficar(initial_capital, periodic_contribution, result)
+        graficar(initial_capital, periodic_contribution, result,frequency)
 
         # Actualizar la tabla global con nuevos cálculos
         data_table = table_data(initial_capital, num_periods, periodic_contribution, result)

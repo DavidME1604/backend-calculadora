@@ -11,9 +11,9 @@ def f(v0, interes, a):
 
 import os
 
-def graficar(capitalInicial, aporte, interes):
+def graficar(capitalInicial, aporte, interes,frequency):
     funcion_reemplazada = f(capitalInicial, interes, aporte)
-    x = np.linspace(1, 12, 60)
+    x = np.linspace(1, periodo(frequency), 60)
     y = funcion_reemplazada(x)
     plt.figure(figsize=(10, 6))
     plt.plot(x, y, color='blue', linewidth=2)
@@ -34,6 +34,21 @@ def graficar(capitalInicial, aporte, interes):
     else:
         print("No se pudo generar el archivo.")
 
+def periodo(frequency):
+    if frequency == 'diario':
+        return 365
+    elif frequency == 'mensual':
+        return 12
+    elif frequency == 'semanal':
+        return 52
+    elif frequency == 'trimestral':
+        return 4
+    elif frequency == 'semestral':
+        return 2
+    elif frequency == 'anual':
+        return 1
+    else:
+        return None
 
 
 def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
@@ -60,6 +75,8 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest, st
         })
 
     return table_data
+
+
 
 
 
