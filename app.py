@@ -23,7 +23,7 @@ def calculate():
             return jsonify({'error': 'Los valores ingresados deben ser positivos.'}), 400
 
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
-        graficar(initial_capital, periodic_contribution, result)
+        graficar(initial_capital, periodic_contribution, result,frequency)
 
         # Actualizar la tabla global con nuevos cálculos
         data_table = table_data(initial_capital, num_periods, periodic_contribution, result)
