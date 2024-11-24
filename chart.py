@@ -71,3 +71,5 @@ def table_data(initial_capital, num_periods, periodic_contribution, interest, st
 
 
 
+
+

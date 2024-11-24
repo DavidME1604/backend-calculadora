@@ -6,7 +6,6 @@ def f(v0, vf, n, a):
             return vf - v0 * (1 + x) ** n
         else:
             return vf - v0 * (1 + x) ** n - a * (((1 + x) ** n - (1 + x)) / x)
-
     return funcion
 
 def obtener_interes(capital_inicial, capital_final, numero_periodos, aporte):
