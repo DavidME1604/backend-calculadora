@@ -12,6 +12,7 @@ data_table = []
 def calculate():
     global data_table  # Indicar que se va a modificar la variable global
     data = request.json
+    print(f"Datos recibidos: {data}")
     try:
         initial_capital = float(data.get('initialCapital', 0))
         final_capital = float(data.get('finalCapital', 0))
@@ -21,7 +22,6 @@ def calculate():
 
         if initial_capital < 0 or final_capital < 0 or num_periods <= 0 or periodic_contribution < 0:
             return jsonify({'error': 'Los valores ingresados deben ser positivos.'}), 400
-
         result = obtener_interes(initial_capital, final_capital, num_periods, periodic_contribution)
         graficar(initial_capital, periodic_contribution, result,frequency)
 
