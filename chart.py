@@ -52,40 +52,34 @@ def periodo(frequency):
 
 
 def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
-    """
-    Genera datos para la tabla. Ajusta la columna 'capital' para que sea igual al 'total'
-    del registro anterior, excepto en la primera fila.
-    """
     table_data = []
-    previous_total = initial_capital  # Inicializar con el capital inicial para la primera fila
+    previous_total = initial_capital  # Inicializar con el capital inicial
 
     for period in range(start_period, start_period + num_periods):
-        # Cálculo del total usando la fórmula original
-        if abs(interest) < 1e-10:  # Evitar división por cero en tasas muy pequeñas
-            total = previous_total + periodic_contribution
+        # Ajustar el aporte a 0 para el primer período
+        contribution = 0 if period == start_period else periodic_contribution
+
+        if abs(interest) < 1e-10:  # Evitar división por cero
+            total = previous_total + contribution
         else:
             total = (initial_capital * (1 + interest) ** period +
-                     periodic_contribution * (((1 + interest) ** period - (1 + interest)) / interest))
+                     contribution * (((1 + interest) ** period - (1 + interest)) / interest))
 
-        # Ajustar el capital para que sea igual al total de la fila anterior, excepto la primera fila
         capital = previous_total if period > start_period else initial_capital
-
-        # Calcular ganancia como la diferencia entre Total y Capital
         gain = total - capital
 
-        # Agregar datos a la tabla
         table_data.append({
             'period': period,
-            'contribution': periodic_contribution,
+            'contribution': round(contribution, 2),
             'capital': round(capital, 2),
             'gain': round(gain, 2),
             'total': round(total, 2),
         })
 
-        # Actualizar el total previo para la próxima iteración
         previous_total = total
 
     return table_data
+
 
 
 
