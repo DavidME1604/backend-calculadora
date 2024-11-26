@@ -51,30 +51,30 @@ def periodo(frequency):
         return None
 
 
-def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1):
+def table_data(initial_capital, num_periods, periodic_contribution, interest, start_period=1, frequency=None):
     table_data = []
+    previous_total = initial_capital  # Inicializar con el capital inicial
+
     for period in range(start_period, start_period + num_periods):
-        # Calcular Total usando la nueva fórmula proporcionada
         if abs(interest) < 1e-10:
-            # Caso especial para evitar división por cero
-            total = initial_capital * (1 + interest) ** period
+            total = previous_total * (1 + interest)
         else:
-            total = (initial_capital * (1 + interest) ** period +
+            total = (previous_total * (1 + interest) +
                      periodic_contribution * (((1 + interest) ** period - (1 + interest)) / interest))
 
-        # Calcular Ganancia como la diferencia entre Total y el Capital Inicial
-        gain = total - initial_capital
+        gain = total - previous_total  # Calcular ganancia en base al total previo
 
-        # Agregar los datos calculados a la tabla
         table_data.append({
             'period': period,
             'contribution': periodic_contribution,
-            'capital': round(initial_capital, 2),
+            'capital': round(previous_total, 2) if period > 1 else round(initial_capital, 2),
             'gain': round(gain, 2),
             'total': round(total, 2)
         })
+        previous_total = total  # Actualizar para la próxima fila
 
     return table_data
+
 
 
 

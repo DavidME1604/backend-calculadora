@@ -45,6 +45,7 @@ def table():
     try:
         data = request.json
         required_rows = int(data.get('requiredRows', 5))
+        frequency = data.get('frequency', 'diario')  # Obtener la frecuencia desde la solicitud
         global data_table
 
         if not data_table:
@@ -52,11 +53,18 @@ def table():
 
         if required_rows > len(data_table):
             last_row = data_table[-1]
-            initial_capital = last_row['capital']  # Tomar el capital inicial como base
-            periodic_contribution = last_row['contribution']  # Aporte periódico
-            interest = 0.20171  # Ejemplo: tasa de interés fija (debe calcularse dinámicamente)
-            last_period = last_row['period']  # Último período
-            additional_data = table_data(initial_capital, required_rows - len(data_table), periodic_contribution, interest, start_period=last_period + 1)
+            initial_capital = last_row['capital']
+            periodic_contribution = last_row['contribution']
+            interest = 0.20171
+            last_period = last_row['period']
+            additional_data = table_data(
+                initial_capital,
+                required_rows - len(data_table),
+                periodic_contribution,
+                interest,
+                start_period=last_period + 1,
+                frequency=frequency
+            )
             data_table.extend(additional_data)
 
         return jsonify({'dataTable': data_table[:required_rows]})
