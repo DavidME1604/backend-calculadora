@@ -13,7 +13,7 @@ import os
 
 def graficar(capitalInicial, aporte, interes,frequency):
     funcion_reemplazada = f(capitalInicial, interes, aporte)
-    x = np.linspace(1, periodo(frequency), 60)
+    x = np.linspace(0, periodo(frequency), 60)
     y = funcion_reemplazada(x)
     plt.figure(figsize=(10, 6))
     plt.plot(x, y, color='blue', linewidth=2)
